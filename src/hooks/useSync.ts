@@ -1,0 +1,2 @@
+import {useEffect} from 'react'; import {useAppStore} from '../store/useAppStore';
+export function useSync(){const offline=useAppStore(s=>s.offline);const sync=useAppStore(s=>s.sync);useEffect(()=>{const online=()=>{if(navigator.onLine)sync()};window.addEventListener('online',online);return()=>window.removeEventListener('online',online)},[sync]);return {offline,pending:useAppStore(s=>s.cases.filter(c=>c.syncStatus==='pending').length),sync}}
